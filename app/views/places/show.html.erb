@@ -29,6 +29,18 @@
 <% end %>
   <br/>
 
+  <% @place.photos.each do |photo| %>
+    <div class="col-xs-12">
+        <% if photo.present? %>
+          <%= image_tag photo.picture %>
+          <br/>
+          <b><%= photo.caption %></b>
+        <% end %>
+    </div>
+  <% end %>  
+
+  <br/>
+
   <div class="pull-right">
     <% if current_user && current_user == @place.user %>
     <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-primary' %>
@@ -49,17 +61,19 @@
 <div class="clear"></div>
 
 
-  <% @place.comments.each do |comment| %>
-    <div class="col-xs-12 col-sm-6">
-      <blockquote>
-        <% if comment.humanized_rating.present? %>
-          <b><%= comment.humanized_rating %></b>
-        <% end %>
-        <%= comment.message %>
-        <small><%= comment.user.email %></small>
-      </blockquote>
-    </div>
-  <% end %>
+<% @place.comments.each do |comment| %>
+  <div class="col-xs-12 col-sm-6">
+    <blockquote>
+      <% if comment.humanized_rating.present? %>
+        <b><%= comment.humanized_rating %></b>
+      <% end %>
+      <%= comment.message %>
+      <small><%= comment.user.email %></small>
+    </blockquote>
+  </div>
+<% end %>
+
+
 
 
 <!-- Modal -->
@@ -85,3 +99,11 @@
   </div>
 </div>
 
+<div class="clear"></div>
+
+<%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+  <%= f.input :picture %>
+  <%= f.input :caption %>
+  <br/>
+  <%= f.submit "Add an image", class: "btn btn-primary" %>
+<% end %>

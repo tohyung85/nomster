@@ -50,6 +50,12 @@ gem 'geocoder', '1.3.4'
 # Figaro
 gem 'figaro', '>= 1.0.0'
 
+# Carrierwave - photo uploading
+gem 'carrierwave'
+
+#Fog gem
+gem 'fog'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
